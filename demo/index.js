@@ -7,7 +7,6 @@ getSkeleton({
   outputPath: path.join(__dirname, 'output'),
   openRepeatList: false,
   device: 'iPhone X', // 为空则使用默认 PC 页面打开
-  tinifyApiKey: 'PyvSLLTt4sQbnxy44ZJBDxf4ttD2Ygy9', // TINIFY_API_KEY
   minGrayBlockWidth: 80,
   minGrayPseudoWidth: 10,
   debug: false,

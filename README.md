@@ -25,7 +25,6 @@ getSkeleton({
   pageUrl: 'https://www.baidu.com',
   outputPath: path.join(__dirname, 'output'),
   device: 'iPhone X',
-  tinifyApiKey: 'PyvSLLTt4sQbnxy44ZJBDxf4ttD2Ygy9',
   minGrayBlockWidth: 80,
   minGrayPseudoWidth: 10,
   debug: false,

@@ -1,10 +1,9 @@
 const fs = require('fs');
 const path = require('path');
-const tinify = require('tinify');
+const images = require('images');
 const base64Img = require('base64-img');
 
 const saveScreenShot = async (page, options) => {
-  tinify.key = options.tinifyApiKey || 'PyvSLLTt4sQbnxy44ZJBDxf4ttD2Ygy9';
   const screenshotPath = path.join(options.outputPath, `skeleton-${options.pageName}.png`);
 
   // 首屏骨架图截图
@@ -12,8 +11,8 @@ const saveScreenShot = async (page, options) => {
     path: screenshotPath,
   });
 
-  // 使用 tinypng 进行图片压缩
-  await tinify.fromFile(screenshotPath).toFile(screenshotPath);
+  // 使用 images 进行图片压缩
+  await images(screenshotPath).size(375).save(screenshotPath);
 
   const skeletonImageBase64 = base64Img.base64Sync(screenshotPath);
 
