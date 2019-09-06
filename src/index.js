@@ -1,6 +1,5 @@
-
-
 const fs = require('fs');
+const path = require('path');
 
 const {
   saveScreenShot,
@@ -13,7 +12,7 @@ const insertSkeleton = require('./insertSkeleton');
  * @param {Object} options 配置
  * @param {String} options.pageName 页面名称（仅限英文）
  * @param {String} options.pageUrl 页面地址（此地址必须可访问）
- * @param {String} options.outputPath 骨架图文件输出文件夹路径
+ * @param {String} options.outputPath 骨架图文件输出文件夹路径，不填则输出到默认项目
  * @param {Boolean} options.openRepeatList 默认会将每个列表的第一项进行复制，默认值 true
  * @param {Object} options.device 参考 puppeteer/DeviceDescriptors.js
  * @param {Number} options.minGrayBlockWidth 最小处理灰色块的宽度
@@ -24,13 +23,17 @@ const insertSkeleton = require('./insertSkeleton');
  */
 const getSkeleton = async function(options) {
   // 参数校验
-  if (!options.pageName || !options.pageUrl || !options.outputPath) {
-    console.warning('参数不能为空！');
+  if (!options.pageUrl) {
+    console.warn('页面地址不能为空！');
     return false;
   }
 
+  // 设置默认参数
+  options.pageName = options.pageName ? options.pageName : 'output';
+  options.outputPath = options.outputPath ? options.outputPath : path.join('skeleton-output');
+
   // 若不存在 output 目录，创建目录
-  if (options.outputPath && !fs.existsSync(options.outputPath)) {
+  if (!fs.existsSync(options.outputPath)) {
     fs.mkdirSync(options.outputPath);
   }
 
@@ -46,12 +49,12 @@ const getSkeleton = async function(options) {
   const skeletonImageBase64 = await saveScreenShot(page, options);
 
   // 将骨架图注入要页面
-  const skeletonHTML = insertSkeleton(skeletonImageBase64, options);
+  const result = insertSkeleton(skeletonImageBase64, options);
 
   // 关闭浏览器
   await browser.close();
 
-  return skeletonHTML;
+  return result;
 };
 
 module.exports = getSkeleton;

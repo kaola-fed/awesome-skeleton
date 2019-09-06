@@ -7,7 +7,7 @@ const insertSkeleton = (skeletonImageBase64, options) => {
   const skeletonHTMLPath = path.join(options.outputPath, `skeleton-${options.pageName}.html`);
 
   if (!skeletonImageBase64) {
-    console.warning('骨架图还没未生成');
+    console.warn('骨架图还没未生成');
     return false;
   }
 
@@ -82,7 +82,10 @@ const insertSkeleton = (skeletonImageBase64, options) => {
     if (err) return console.error(err);
   });
 
-  return minifyContent;
+  return {
+    html: minifyContent,
+    img: skeletonImageBase64,
+  };
 };
 
 module.exports = insertSkeleton;

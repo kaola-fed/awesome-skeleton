@@ -17,17 +17,14 @@ npm i --save-dev awesome-skeleton
 ## 使用方法
 
 ```js
-const path = require('path');
 const getSkeleton = require('awesome-skeleton');
 
 getSkeleton({
   pageName: 'baidu',
   pageUrl: 'https://www.baidu.com',
-  outputPath: path.join(__dirname, 'output'),
   device: 'iPhone X',
   minGrayBlockWidth: 80,
   minGrayPseudoWidth: 10,
-  debug: false,
 }).then(skeletonHTML => {
   console.log('skeleton HTML: ', skeletonHTML)
 });
@@ -39,9 +36,9 @@ getSkeleton({
 
 | 参数名称 | 必填 | 默认值 | 说明 |
 | --- | --- | --- | --- |
-| pageName | 是 | - | 页面名称（仅限英文） |
 | pageUrl | 是 | - | 页面地址（此地址必须可访问） |
-| outputPath | 是 | - | 骨架图文件输出文件夹路径 |
+| pageName | 否 | output | 页面名称（仅限英文） |
+| outputPath | 否 | skeleton-output | 骨架图文件输出文件夹路径，默认到项目 skeleton-output 中 |
 | openRepeatList | 否 | true | 默认会将每个列表的第一项进行复制 |
 | device | 否 | 空为PC | 参考 puppeteer/DeviceDescriptors.js，可以设置为 'iPhone 6 Plus' |
 | debug | 否 | false | 是否开启调试开关 |
