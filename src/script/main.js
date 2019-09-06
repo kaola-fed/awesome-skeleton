@@ -52,7 +52,7 @@ window.AwesomeSkeleton = {
         switchElement.onclick = async () => {
           removeElement(switchElement);
           await this.startGenSkeleton();
-          await sleep(options.debugTime || 1000000000);
+          await sleep(options.debugTime || 0);
           resolve();
         };
       } catch (e) {
