@@ -1,0 +1,12 @@
+.*
+test/
+coverage/
+docs/
+docs_dist/
+logs/
+demo/
+*.md
+*.tgz
+*.yml
+*.sw*
+*.un~

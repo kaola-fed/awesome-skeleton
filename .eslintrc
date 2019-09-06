@@ -1,0 +1,14 @@
+{
+  "extends": "eslint-config-egg",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "globals": {
+    "window": true,
+    "document": true,
+    "getComputedStyle": true
+  }
+}

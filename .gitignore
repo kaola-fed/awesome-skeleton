@@ -1,0 +1,8 @@
+node_modules
+dist
+build
+.DS_Store
+demo/**/*.txt
+demo/**/*.html
+demo/**/*.png
+
