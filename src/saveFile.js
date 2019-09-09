@@ -11,8 +11,9 @@ const saveScreenShot = async (page, options) => {
     path: screenshotPath,
   });
 
+  const imgWidth = options.device ? 375 : 1920;
   // 使用 images 进行图片压缩
-  await images(screenshotPath).size(375).save(screenshotPath);
+  await images(screenshotPath).size(imgWidth).save(screenshotPath);
 
   const skeletonImageBase64 = base64Img.base64Sync(screenshotPath);
 
