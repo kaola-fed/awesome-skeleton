@@ -1,6 +1,6 @@
 {
   "name": "awesome-skeleton",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "骨架图生成器",
   "author": "",
   "main": "src/index.js",
