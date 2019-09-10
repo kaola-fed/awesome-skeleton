@@ -18,7 +18,7 @@ const desktopDevice = {
 const openPage = async options => {
   const browser = await puppeteer.launch({
     headless: !options.debug,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    args: [ '--no-sandbox', '--disable-setuid-sandbox' ],
   });
   const page = await browser.newPage();
   const device = devices[options.device] || desktopDevice;
