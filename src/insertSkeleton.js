@@ -47,9 +47,10 @@ const insertSkeleton = (skeletonImageBase64, options) => {
       bottom: 0;
       z-index: 9998;
       background-repeat: no-repeat !important;
-      background-size: 100% auto !important;
+      background-size: ${options.device ? '100% auto' : '1920px 1080px'} !important;
       background-image: url(${skeletonImageBase64}) !important;
       background-color: #FFFFFF !important;
+      background-position: center 0 !important;
     "></div>
     <script class="${skeletonClass}">
       // 定义外部调用的钩子
