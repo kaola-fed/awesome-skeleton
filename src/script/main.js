@@ -182,6 +182,9 @@ window.AwesomeSkeleton = {
       case 'SVG':
         handler.svg(node);
         break;
+      case 'INPUT':
+        handler.input(node);
+        break;
       case 'BUTTON': // 按钮处理一次就结束
         handler.button(node);
         break;
