@@ -84,7 +84,8 @@ const insertSkeleton = (skeletonImageBase64, options) => {
   });
 
   return {
-    html: minifyContent,
+    minHtml: minifyContent,
+    html: content,
     img: skeletonImageBase64,
   };
 };
