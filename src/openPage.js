@@ -39,7 +39,7 @@ const openPage = async options => {
   if (options.cookies && options.cookies.length) {
     await page.setCookie(...options.cookies);
     await page.cookies(options.pageUrl);
-    await sleep(1000)
+    await sleep(1000);
     await page.goto(options.pageUrl);
   }
 
