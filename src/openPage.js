@@ -35,6 +35,14 @@ const openPage = async options => {
 
   await page.goto(options.pageUrl);
 
+  // 写入 cookie，解决登录态问题
+  if (options.cookies && options.cookies.length) {
+    await page.setCookie(...options.cookies);
+    await page.cookies(options.pageUrl);
+    await sleep(1000)
+    await page.goto(options.pageUrl);
+  }
+
   // 获取 src/script 中打包后的脚本
   const scriptContent = await genScriptContent();
 

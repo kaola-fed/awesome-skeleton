@@ -10,8 +10,8 @@
 
 ## 安装方法
 
-```
-npm i --save-dev awesome-skeleton
+```bash
+$ npm i awesome-skeleton -S
 ```
 
 ## 使用方法
@@ -23,6 +23,33 @@ getSkeleton({
   pageName: 'baidu',
   pageUrl: 'https://www.baidu.com',
   device: 'iPhone X',
+  cookies: [{
+    "domain": ".baidu.com",
+    "expirationDate": 3708990421.619608,
+    "hostOnly": false,
+    "httpOnly": false,
+    "name": "BAIDUID",
+    "path": "/",
+    "sameSite": "unspecified",
+    "secure": false,
+    "session": false,
+    "storeId": "0",
+    "value": "7626E9A086D13BD919789E744B1C48A2:FG=1",
+    "id": 1
+  }, {
+    "domain": ".baidu.com",
+    "expirationDate": 1568267131.555328,
+    "hostOnly": false,
+    "httpOnly": false,
+    "name": "BDORZ",
+    "path": "/",
+    "sameSite": "unspecified",
+    "secure": false,
+    "session": false,
+    "storeId": "0",
+    "value": "B490B5EBF6F3CD402E515D22BCDA1598",
+    "id": 2
+  }],
   minGrayBlockWidth: 80,
   minGrayPseudoWidth: 10,
 }).then(skeletonHTML => {
@@ -38,6 +65,7 @@ getSkeleton({
 | --- | --- | --- | --- |
 | pageUrl | 是 | - | 页面地址（此地址必须可访问） |
 | pageName | 否 | output | 页面名称（仅限英文） |
+| cookies | 否 |  | 页面 Cookies，用来解决登录态问题 |
 | outputPath | 否 | skeleton-output | 骨架图文件输出文件夹路径，默认到项目 skeleton-output 中 |
 | openRepeatList | 否 | true | 默认会将每个列表的第一项进行复制 |
 | device | 否 | 空为PC | 参考 puppeteer/DeviceDescriptors.js，可以设置为 'iPhone 6 Plus' |
