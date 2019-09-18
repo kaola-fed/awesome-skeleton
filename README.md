@@ -20,10 +20,10 @@ $ npm i awesome-skeleton -S
 const getSkeleton = require('awesome-skeleton');
 
 getSkeleton({
-  pageName: 'baidu',
-  pageUrl: 'https://www.baidu.com',
-  device: 'iPhone X',
-  cookies: [{
+  pageUrl: 'https://www.baidu.com', // 必填
+  pageName: 'baidu',  // 可选
+  device: 'iPhone X', // 可选，为空则为桌面端
+  cookies: [{         // 可选，页面需要登录态时使用，通过 Chrome 插件 editthiscookie 复制得到。
     "domain": ".baidu.com",
     "expirationDate": 3708990421.619608,
     "hostOnly": false,
@@ -50,8 +50,8 @@ getSkeleton({
     "value": "B490B5EBF6F3CD402E515D22BCDA1598",
     "id": 2
   }],
-  minGrayBlockWidth: 80,
-  minGrayPseudoWidth: 10,
+  minGrayBlockWidth: 80, // 可选，最小灰块宽度
+  minGrayPseudoWidth: 10, // 可选，最小伪类灰块宽度
 }).then(skeletonHTML => {
   console.log('skeleton HTML: ', skeletonHTML)
 });
