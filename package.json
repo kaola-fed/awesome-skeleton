@@ -49,11 +49,7 @@
   },
   "lint-staged": {
     "*.js": [
-      "eslint --fix",
-      "git add"
-    ],
-    "*.json": [
-      "git add"
+      "eslint --fix"
     ]
   },
   "nyc": {

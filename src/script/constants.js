@@ -1,5 +1,6 @@
 // 骨架图主色调
 export const MAIN_COLOR = '#EEEEEE';
+export const MAIN_COLOR_RGB = 'rgb(238, 238, 238)';
 
 // 伪类样式
 export const PSEUDO_CLASS = 'sk-pseudo';
@@ -15,3 +16,6 @@ export const SMALLEST_BASE64 = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///y
 
 // 标记文本
 export const SKELETON_TEXT_CLASS = 'skeleton-text-block-mark';
+
+// 列表项标签
+export const LIST_ITEM_TAG = [ 'LI', 'DT', 'DD' ];

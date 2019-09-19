@@ -1,5 +1,8 @@
 # Created by https://www.gitignore.io/api/vim,node,code,webstorm,sublimetext
 
+### Project ###
+demo
+
 ### Code ###
 # Visual Studio Code - https://code.visualstudio.com/
 .settings/

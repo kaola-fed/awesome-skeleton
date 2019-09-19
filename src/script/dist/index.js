@@ -79,6 +79,7 @@
 
   // 骨架图主色调
   const MAIN_COLOR = '#EEEEEE';
+  const MAIN_COLOR_RGB = 'rgb(238, 238, 238)';
 
   // 伪类样式
   const PSEUDO_CLASS = 'sk-pseudo';
@@ -94,6 +95,9 @@
 
   // 标记文本
   const SKELETON_TEXT_CLASS = 'skeleton-text-block-mark';
+
+  // 列表项标签
+  const LIST_ITEM_TAG = [ 'LI', 'DT', 'DD' ];
 
   function aHandler(node) {
     node.removeAttribute('href');
@@ -353,13 +357,13 @@
     if (!options.openRepeatList || !node.children.length) return;
 
     const children = node.children;
-    const len = Array.from(children).filter(child => child.tagName === 'LI').length;
+    const len = Array.from(children).filter(child => LIST_ITEM_TAG.indexOf(child.tagName) > -1).length;
 
     if (len === 0) return false;
 
     const firstChild = children[0];
-    // 解决有时ul元素子元素不是 li元素的 bug。
-    if (firstChild.tagName !== 'LI') {
+    // 解决有时ul元素子元素不是指定列表元素的 bug。
+    if (LIST_ITEM_TAG.indexOf(firstChild.tagName) === -1) {
       return listHandler(firstChild, options);
     }
 
@@ -443,6 +447,7 @@
 
   function inputHandler(node) {
     node.removeAttribute('placeholder');
+    node.value = '';
   }
 
   function scriptHandler(node) {
@@ -488,6 +493,13 @@
       node.style.background = MAIN_COLOR;
     }
 
+    // 阴影调整为主色调
+    if (ComputedStyle.boxShadow !== 'none') {
+      const oldBoxShadow = ComputedStyle.boxShadow;
+      const newBoxShadow = oldBoxShadow.replace(/^rgb.*\)/, MAIN_COLOR_RGB);
+      node.style.boxShadow = newBoxShadow;
+    }
+
     // 边框改为主色调
     if (ComputedStyle.borderColor) {
       node.style.borderColor = MAIN_COLOR;
@@ -516,7 +528,7 @@
     async startGenSkeleton() {
       this.init();
       try {
-        this.handleNodes(document.body.childNodes);
+        this.handleNode(document.body);
       } catch (e) {
         console.log('==genSkeleton Error==\n', e.message, e.stack);
       }
@@ -680,6 +692,7 @@
           break;
         case 'UL':
         case 'OL':
+        case 'DL':
           listHandler(node, this.options);
           break;
         case 'A': // a 标签处理放在后面，防止 img 显示异常

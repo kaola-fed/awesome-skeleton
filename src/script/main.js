@@ -26,7 +26,7 @@ window.AwesomeSkeleton = {
   async startGenSkeleton() {
     this.init();
     try {
-      this.handleNodes(document.body.childNodes);
+      this.handleNode(document.body);
     } catch (e) {
       console.log('==genSkeleton Error==\n', e.message, e.stack);
     }
@@ -190,6 +190,7 @@ window.AwesomeSkeleton = {
         break;
       case 'UL':
       case 'OL':
+      case 'DL':
         handler.list(node, this.options);
         break;
       case 'A': // a 标签处理放在后面，防止 img 显示异常

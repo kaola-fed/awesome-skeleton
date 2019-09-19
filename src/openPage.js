@@ -30,18 +30,15 @@ const openPage = async options => {
     page.on('error', msg => console.log('PAGE ERR: ', ...msg.args));
   }
 
-  // 延迟打开页面，用来处理登录，写入 session/cookie
-  await sleep(options.delayTime || 0);
-
-  await page.goto(options.pageUrl);
-
   // 写入 cookie，解决登录态问题
   if (options.cookies && options.cookies.length) {
     await page.setCookie(...options.cookies);
     await page.cookies(options.pageUrl);
     await sleep(1000);
-    await page.goto(options.pageUrl);
   }
+
+  // 打开页面
+  await page.goto(options.pageUrl);
 
   // 获取 src/script 中打包后的脚本
   const scriptContent = await genScriptContent();

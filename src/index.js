@@ -18,7 +18,6 @@ const insertSkeleton = require('./insertSkeleton');
  * @param {Number} options.minGrayBlockWidth 最小处理灰色块的宽度
  * @param {Number} options.minGrayPseudoWidth 最小处理伪类宽度
  * @param {Boolean} options.debug 是否开启调试
- * @param {Number} options.delayTime 延迟打开页面时间，用户处理登录等操作
  * @param {Number} options.debugTime 调试模式下，页面停留在骨架图的时间
  */
 const getSkeleton = async function(options) {

@@ -36,7 +36,6 @@ skeleton.config.json:
   "minGrayBlockWidth": 80,
   "minGrayPseudoWidth": 10,
   "debug": true,
-  "delayTime": 0,
   "debugTime": 3000,
   "cookies": [
     {
@@ -92,7 +91,6 @@ $ skeleton -c ./skeleton.config.json
 | openRepeatList | 否 | true | 默认会将每个列表的第一项进行复制 |
 | device | 否 | 空为PC | 参考 puppeteer/DeviceDescriptors.js，可以设置为 'iPhone 6 Plus' |
 | debug | 否 | false | 是否开启调试开关 |
-| delayTime | 否 | 0 | 延迟打开页面时间，用户处理登录等操作 |
 | debugTime | 否 | 0 | 调试模式下，页面停留在骨架图的时间 |
 | minGrayBlockWidth | 否 | 0 | 最小处理灰色块的宽度 |
 | minGrayPseudoWidth | 否 | 0 | 最小处理伪类宽 |

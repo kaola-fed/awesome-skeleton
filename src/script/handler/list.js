@@ -2,17 +2,21 @@ import {
   removeElement,
 } from '../util';
 
+import {
+  LIST_ITEM_TAG,
+} from '../constants';
+
 const listHandler = (node, options) => {
   if (!options.openRepeatList || !node.children.length) return;
 
   const children = node.children;
-  const len = Array.from(children).filter(child => child.tagName === 'LI').length;
+  const len = Array.from(children).filter(child => LIST_ITEM_TAG.indexOf(child.tagName) > -1).length;
 
   if (len === 0) return false;
 
   const firstChild = children[0];
-  // 解决有时ul元素子元素不是 li元素的 bug。
-  if (firstChild.tagName !== 'LI') {
+  // 解决有时ul元素子元素不是指定列表元素的 bug。
+  if (LIST_ITEM_TAG.indexOf(firstChild.tagName) === -1) {
     return listHandler(firstChild, options);
   }
 

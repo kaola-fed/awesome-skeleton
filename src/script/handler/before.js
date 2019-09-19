@@ -1,5 +1,6 @@
 import {
   MAIN_COLOR,
+  MAIN_COLOR_RGB,
 } from '../constants';
 
 import {
@@ -29,6 +30,13 @@ function beforeHandler(node, options) {
   if (ComputedStyle.backgroundImage !== 'none') {
     node.style.backgroundImage = 'none';
     node.style.background = MAIN_COLOR;
+  }
+
+  // 阴影调整为主色调
+  if (ComputedStyle.boxShadow !== 'none') {
+    const oldBoxShadow = ComputedStyle.boxShadow;
+    const newBoxShadow = oldBoxShadow.replace(/^rgb.*\)/, MAIN_COLOR_RGB);
+    node.style.boxShadow = newBoxShadow;
   }
 
   // 边框改为主色调
