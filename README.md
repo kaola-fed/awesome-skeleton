@@ -1,5 +1,12 @@
 # awesome-skeleton
 
+[![NPM version][npm-image]][npm-url]
+[![Build status][travis-image]][travis-url]
+[![Coverage status][codecov-image]][codecov-url]
+[![Dependency status][daviddm-image]][daviddm-url]
+
+> 骨架屏生成工具
+
 ## 效果
 
 ![百度骨架图效果](https://pic3.zhimg.com/80/v2-17c5c49ecff01fb6c77dcd4c7f101cf6_hd.jpg)
@@ -159,3 +166,12 @@ window.SKELETON && SKELETON.destroy();
 - [joe-skeleton](https://github.com/korbinzhao/joe-skeleton)
 - [自动化生成 H5 骨架页面](https://zhuanlan.zhihu.com/p/34702561)
 - [一个前端非侵入式骨架屏自动生成方案](https://korbinzhao.github.io/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E9%AA%A8%E6%9E%B6%E5%B1%8F/2018/06/23/skeleton-auto-generator/)
+
+[npm-image]: https://img.shields.io/npm/v/awesome-skeleton.svg?style=flat-square&logo=npm
+[npm-url]: https://npmjs.org/package/awesome-skeleton
+[travis-image]: https://img.shields.io/travis/kaola-fed/awesome-skeleton/master.svg?style=flat-square&logo=travis
+[travis-url]: https://travis-ci.org/kaola-fed/awesome-skeleton
+[codecov-image]: https://img.shields.io/codecov/c/github/kaola-fed/awesome-skeleton/master.svg?style=flat-square&logo=javascript
+[codecov-url]: https://codecov.io/gh/kaola-fed/awesome-skeleton
+[daviddm-image]: https://img.shields.io/david/kaola-fed/awesome-skeleton.svg?style=flat-square
+[daviddm-url]: https://david-dm.org/kaola-fed/awesome-skeleton
