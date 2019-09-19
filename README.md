@@ -11,53 +11,68 @@
 ## 安装方法
 
 ```bash
-$ npm i awesome-skeleton -S
+$ npm i awesome-skeleton -g
 ```
 
 ## 使用方法
 
-```js
-const getSkeleton = require('awesome-skeleton');
+### 添加配置文件
 
-getSkeleton({
-  pageUrl: 'https://www.baidu.com', // 必填
-  pageName: 'baidu',  // 可选
-  device: 'iPhone X', // 可选，为空则为桌面端
-  cookies: [{         // 可选，页面需要登录态时使用，通过 Chrome 插件 editthiscookie 复制得到。
-    "domain": ".baidu.com",
-    "expirationDate": 3708990421.619608,
-    "hostOnly": false,
-    "httpOnly": false,
-    "name": "BAIDUID",
-    "path": "/",
-    "sameSite": "unspecified",
-    "secure": false,
-    "session": false,
-    "storeId": "0",
-    "value": "7626E9A086D13BD919789E744B1C48A2:FG=1",
-    "id": 1
-  }, {
-    "domain": ".baidu.com",
-    "expirationDate": 1568267131.555328,
-    "hostOnly": false,
-    "httpOnly": false,
-    "name": "BDORZ",
-    "path": "/",
-    "sameSite": "unspecified",
-    "secure": false,
-    "session": false,
-    "storeId": "0",
-    "value": "B490B5EBF6F3CD402E515D22BCDA1598",
-    "id": 2
-  }],
-  minGrayBlockWidth: 80, // 可选，最小灰块宽度
-  minGrayPseudoWidth: 10, // 可选，最小伪类灰块宽度
-}).then(skeletonHTML => {
-  console.log('skeleton HTML: ', skeletonHTML)
-});
+skeleton.config.json:
+
+```json
+{
+  "pageName": "baidu",
+  "pageUrl": "https://www.baidu.com",
+  "openRepeatList": false,
+  "device": "iPhone X",
+  "minGrayBlockWidth": 80,
+  "minGrayPseudoWidth": 10,
+  "debug": true,
+  "delayTime": 0,
+  "debugTime": 3000,
+  "cookies": [
+    {
+      "domain": ".baidu.com",
+      "expirationDate": 1568267131.555328,
+      "hostOnly": false,
+      "httpOnly": false,
+      "name": "BDORZ",
+      "path": "/",
+      "sameSite": "unspecified",
+      "secure": false,
+      "session": false,
+      "storeId": "0",
+      "value": "yyyyyyyyy",
+      "id": 2
+    }
+  ]
+}
 ```
 
-## 骨架图效果示例
+### 生成骨架屏
+```bash
+$ skeleton -c ./skeleton.config.json
+```
+
+页面 DomReady 之后，会在页面顶部出现红色按钮：开始生成骨架屏。
+
+生成完成后，会在运行目录生成 skeleton-output 文件件，里面包括骨架屏 png 图片、base64 文本、html 文件。
+
+其中 html 文件可以直接拿来用，复制下面位置：
+
+```html
+<html>
+  <head>
+    <!--- 骨架屏代码 -->
+  </head>
+</html>
+```
+
+
+### 登录态解决
+
+如果页面需要登录，则需要下载 Chrome 插件 EditThisCookie，将 Cookie 复制到配置参数中。
 
 ## 参数
 

@@ -2,6 +2,7 @@ node_modules
 dist
 build
 .DS_Store
+skeleton-output
 demo/**/*.txt
 demo/**/*.html
 demo/**/*.png
