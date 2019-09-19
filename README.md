@@ -2,23 +2,29 @@
 
 [![NPM version][npm-image]][npm-url]
 [![Build status][travis-image]][travis-url]
-[![Coverage status][codecov-image]][codecov-url]
 [![Dependency status][daviddm-image]][daviddm-url]
 
 > 骨架屏生成工具
 
 ## 效果
 
-![百度骨架图效果](https://pic3.zhimg.com/80/v2-17c5c49ecff01fb6c77dcd4c7f101cf6_hd.jpg)
+![百度骨架图效果](https://user-images.githubusercontent.com/11460601/65244525-53531880-db1d-11e9-85ca-76fe9c04868f.jpeg)
 
 ## 说明
 * 骨架图生成组件，仅限node端使用。该组件提供骨架图生成和骨架图模板注入两个能力。
 * 骨架图生成逻辑：通过传入页面地址，使用 Puppeteer 无头浏览器打开页面地址，对页面首屏图片和文本等节点进行灰色背景处理，然后对页面首屏进行截图，生成压缩后的 base64 png 图片。
 
-## 安装方法
+## 安装
+
+### 全局安装
 
 ```bash
 $ npm i awesome-skeleton -g
+```
+
+### 项目中安装
+```bash
+$ npm i awesome-skeleton -D
 ```
 
 ## 使用方法
@@ -56,7 +62,8 @@ skeleton.config.json:
 }
 ```
 
-### 生成骨架屏
+### 全局生成骨架屏
+
 ```bash
 $ skeleton -c ./skeleton.config.json
 ```
@@ -75,10 +82,25 @@ $ skeleton -c ./skeleton.config.json
 </html>
 ```
 
+### 项目中生成骨架屏
 
-### 登录态解决
+在 package.json 中添加脚本：
 
-如果页面需要登录，则需要下载 Chrome 插件 EditThisCookie，将 Cookie 复制到配置参数中。
+```json
+"scripts": {
+  "skeleton": "skeleton -c ./skeleton.config.json"
+}
+```
+
+生成骨架屏：
+
+```bash
+$ npm run skeleton
+```
+
+### 解决登录态
+
+如果页面需要登录，则需要下载 Chrome 插件 [EditThisCookie](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg)，将 Cookie 复制到配置参数中。
 
 ## 参数
 
@@ -162,14 +184,10 @@ window.SKELETON && SKELETON.destroy();
 - [puppeteer](https://github.com/GoogleChrome/puppeteer)
 - [page-skeleton-webpack-plugin](https://github.com/ElemeFE/page-skeleton-webpack-plugin)
 - [joe-skeleton](https://github.com/korbinzhao/joe-skeleton)
-- [自动化生成 H5 骨架页面](https://zhuanlan.zhihu.com/p/34702561)
-- [一个前端非侵入式骨架屏自动生成方案](https://korbinzhao.github.io/%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91/%E9%AA%A8%E6%9E%B6%E5%B1%8F/2018/06/23/skeleton-auto-generator/)
 
 [npm-image]: https://img.shields.io/npm/v/awesome-skeleton.svg?style=flat-square&logo=npm
 [npm-url]: https://npmjs.org/package/awesome-skeleton
 [travis-image]: https://img.shields.io/travis/kaola-fed/awesome-skeleton/master.svg?style=flat-square&logo=travis
 [travis-url]: https://travis-ci.org/kaola-fed/awesome-skeleton
-[codecov-image]: https://img.shields.io/codecov/c/github/kaola-fed/awesome-skeleton/master.svg?style=flat-square&logo=javascript
-[codecov-url]: https://codecov.io/gh/kaola-fed/awesome-skeleton
 [daviddm-image]: https://img.shields.io/david/kaola-fed/awesome-skeleton.svg?style=flat-square
 [daviddm-url]: https://david-dm.org/kaola-fed/awesome-skeleton
