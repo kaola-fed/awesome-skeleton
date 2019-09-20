@@ -1,12 +1,12 @@
-(function() {
+(function () {
+  'use strict';
 
-
-  // 睡眠函数
+  // sleep function
   const sleep = ms => {
     return new Promise(resolve => setTimeout(resolve, ms));
   };
 
-  // 检查节点是否在首屏中
+  // Check if the node is in the first screen
   const inViewPort = ele => {
     try {
       const rect = ele.getBoundingClientRect();
@@ -18,7 +18,7 @@
     }
   };
 
-  // 判断节点是否存在属性
+  // Determine if the node has attributes
   const hasAttr = (ele, attr) => {
     try {
       return ele.hasAttribute(attr);
@@ -27,14 +27,14 @@
     }
   };
 
-  // 设置节点透明
+  // Set node transparency
   const setOpacity = ele => {
     if (ele.style) {
       ele.style.opacity = 0;
     }
   };
 
-  // 单位转换 px -> rem
+  // Unit conversion px -> rem
   const px2rem = px => {
     const pxValue = typeof px === 'string' ? parseInt(px, 10) : px;
     const htmlElementFontSize = getComputedStyle(document.documentElement).fontSize;
@@ -42,12 +42,12 @@
     return `${(pxValue / parseInt(htmlElementFontSize, 10))}rem`;
   };
 
-  // 批量设置元素属性
+  // Batch setting element properties
   const setAttributes = (ele, attrs) => {
     Object.keys(attrs).forEach(k => ele.setAttribute(k, attrs[k]));
   };
 
-  // 删除元素
+  // Delete element
   const removeElement = ele => {
     const parent = ele.parentNode;
     if (parent) {
@@ -55,7 +55,7 @@
     }
   };
 
-  // 检查元素伪类，返回对应元素和宽度
+  // Check the element pseudo-class to return the corresponding element and width
   const checkHasPseudoEle = ele => {
     if (!ele) return false;
 
@@ -77,26 +77,26 @@
     return false;
   };
 
-  // 骨架图主色调
+  // Skeleton main color
   const MAIN_COLOR = '#EEEEEE';
   const MAIN_COLOR_RGB = 'rgb(238, 238, 238)';
 
-  // 伪类样式
+  // Pseudo-class style
   const PSEUDO_CLASS = 'sk-pseudo';
 
-  // 按钮样式
+  // button style
   const BUTTON_CLASS = 'sk-button';
 
-  // 透明样式
+  // Transparent style
   const TRANSPARENT_CLASS = 'sk-transparent';
 
-  // 最小 1 * 1 像素的透明 gif 图片
+  // Transparent 1 pixel image
   const SMALLEST_BASE64 = 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7';
 
-  // 标记文本
+  // text class
   const SKELETON_TEXT_CLASS = 'skeleton-text-block-mark';
 
-  // 列表项标签
+  // List item Tag
   const LIST_ITEM_TAG = [ 'LI', 'DT', 'DD' ];
 
   function aHandler(node) {
@@ -106,15 +106,15 @@
   function svgHandler(node) {
     const { width, height } = node.getBoundingClientRect();
 
-    // 元素不可见则移除
+    // Remove elements if they are not visible
     if (width === 0 || height === 0 || node.getAttribute('aria-hidden') === 'true') {
       return removeElement(node);
     }
 
-    // 清空元素内容
+    // Clear node centent
     node.innerHTML = '';
 
-    // 设置样式
+    // Set style
     Object.assign(node.style, {
       width: px2rem(parseInt(width)),
       height: px2rem(parseInt(height)),
@@ -148,7 +148,7 @@
     node.style.width = width;
     node.style.height = height;
 
-    // 清空按钮内容
+    // Clear button content
     node.innerHTML = '';
   }
 
@@ -284,14 +284,14 @@
     const position = [ 'fixed', 'absolute', 'flex' ].find(p => p === pos) ? pos : 'relative';
 
     const height = ele.offsetHeight;
-    // 向下取整
+    // Round down
     let lineCount = (height - parseFloat(paddingTop, 10) - parseFloat(paddingBottom, 10)) / parseFloat(lineHeight, 10) || 0;
 
     lineCount = lineCount < 1.5 ? 1 : lineCount;
 
-    const textHeightRatio = 0.6; // 默认值
+    const textHeightRatio = 0.6; // Default
 
-    // 添加文本块类名标记
+    // Add text block class name tag
     ele.classList.add(SKELETON_TEXT_CLASS);
 
     Object.assign(ele.style, {
@@ -337,19 +337,19 @@
       width,
     } = ele.getBoundingClientRect();
 
-    // 宽度小于 N 的元素就不做阴影处理
+    // Elements with a width less than N are not handled
     const minGrayBlockWidth = options.minGrayBlockWidth || 30;
     if (width <= minGrayBlockWidth) {
       return setOpacity(ele);
     }
 
-    // 如果是按钮则提前结束
+    // If it is a button, it ends early
     const isBtn = /(btn)|(button)/g.test(ele.getAttribute('class'));
     if (isBtn) {
       return buttonHandler(ele);
     }
 
-    // 处理文本样式
+    // Handling text styles
     handleTextStyle(ele, width);
   }
 
@@ -362,19 +362,19 @@
     if (len === 0) return false;
 
     const firstChild = children[0];
-    // 解决有时ul元素子元素不是指定列表元素的 bug。
+    // Solve the bug that sometimes the ul element child element is not a specified list element.
     if (LIST_ITEM_TAG.indexOf(firstChild.tagName) === -1) {
       return listHandler(firstChild, options);
     }
 
-    // 只保留第一个列表元素
+    // Keep only the first list element
     Array.from(children).forEach((li, index) => {
       if (index > 0) {
         removeElement(li);
       }
     });
 
-    // 将 li 所有兄弟元素设置成相同的元素，保证生成的页面骨架整齐
+    // Set all sibling elements of LI to the same element to ensure that the generated page skeleton is neat
     for (let i = 1; i < len; i++) {
       node.appendChild(firstChild.cloneNode(true));
     }
@@ -463,7 +463,7 @@
 
     const { ele, width } = pseudo;
 
-    // 宽度小于阈值隐藏
+    // Width is less than the hiding threshold
     if (width < options.minGrayPseudoWidth) {
       return ele.classList.add(TRANSPARENT_CLASS);
     }
@@ -474,12 +474,12 @@
   function beforeHandler(node, options) {
     if (!node.tagName) return;
 
-    // 处理用户标记的空元素
+    // Handling empty elements of user tags
     if (hasAttr(node, 'data-skeleton-empty')) {
       emptyHandler(node);
     }
 
-    // 宽度小于阈值隐藏
+    // Width is less than the hiding threshold
     const { width } = node.getBoundingClientRect();
     if (width < options.minGrayBlockWidth) {
       setOpacity(node);
@@ -487,25 +487,25 @@
 
     const ComputedStyle = getComputedStyle(node);
 
-    // 背景图改为主色调
+    // The background image is changed to the main color
     if (ComputedStyle.backgroundImage !== 'none') {
       node.style.backgroundImage = 'none';
       node.style.background = MAIN_COLOR;
     }
 
-    // 阴影调整为主色调
+    // The Shadow is changed to the main color
     if (ComputedStyle.boxShadow !== 'none') {
       const oldBoxShadow = ComputedStyle.boxShadow;
       const newBoxShadow = oldBoxShadow.replace(/^rgb.*\)/, MAIN_COLOR_RGB);
       node.style.boxShadow = newBoxShadow;
     }
 
-    // 边框改为主色调
+    // The border is changed to the main color
     if (ComputedStyle.borderColor) {
       node.style.borderColor = MAIN_COLOR;
     }
 
-    // 设置用户标记的背景色
+    // Set the background color of the user class
     const bgColor = node.getAttribute('data-skeleton-bgcolor');
     if (bgColor) {
       node.style.backgroundColor = bgColor;
@@ -514,7 +514,7 @@
   }
 
   window.AwesomeSkeleton = {
-    // 入口函数
+    // Entry function
     async genSkeleton(options) {
       this.options = options;
       if (options.debug) {
@@ -524,7 +524,7 @@
       }
     },
 
-    // 开始生成骨架图
+    // Start generating the skeleton
     async startGenSkeleton() {
       this.init();
       try {
@@ -534,7 +534,8 @@
       }
     },
 
-    // Debug 模式生成骨架图，用于调试。页面顶部会有按钮，点击后生成骨架图
+    // The Debug mode generates a skeleton diagram for debugging.
+    // There will be a button at the top of the page, and click to generate a skeleton map.
     async debugGenSkeleton(options) {
       const switchElement = document.createElement('button');
       switchElement.innerHTML = '开始生成骨架图';
@@ -548,7 +549,7 @@
       });
       document.body.prepend(switchElement);
 
-      // 需要等待事件处理，所以使用 Promise 进行包装
+      // Need to wait for event processing, so use Promise for packaging
       return new Promise((resolve, reject) => {
         try {
           switchElement.onclick = async () => {
@@ -564,13 +565,13 @@
       });
     },
 
-    // 初始化处理 DOM
+    // Initialization processing DOM
     init() {
       this.cleanSkeletonContainer();
       styleHandler();
     },
 
-    // 将骨架图html和style从页面中移除，避免干扰
+    // Remove skeleton image html and style from the page to avoid interference
     cleanSkeletonContainer() {
       const skeletonWrap = document.body.querySelector('#nozomi-skeleton-html-style-container');
       if (skeletonWrap) {
@@ -579,25 +580,25 @@
     },
 
     /**
-     * 处理文本节点
-     * @param {*} node 节点
-     * @return {Boolean} true 已完成处理，false 还需要继续处理
+     * Processing text nodes
+     * @param {*} node Node
+     * @return {Boolean} True means that processing has been completed, false means that processing still needs to be continued
      */
     handleText(node) {
       const tagName = node.tagName && node.tagName.toUpperCase();
 
-      // 处理 <div>xxx</div> 或 <a>xxx</a>
+      // Processing <div>xxx</div> or <a>xxx</a>
       if (node.childNodes && node.childNodes.length === 1 && node.childNodes[0].nodeType === 3) {
         textHandler(node, this.options);
         return true;
       }
 
-      // 处理 xxx，改为 <i>xxx</i>
+      // Processing xxx，change to <i>xxx</i>
       if (node && node.nodeType === 3 && node.textContent) {
         const parent = node.parentNode;
-        // 判断是否已经被处理过
+        // Determine if it has been processed
         if (!parent.classList.contains(SKELETON_TEXT_CLASS)) {
-          // 本身为纯文本，需要替换为节点
+          // It is plain text itself and needs to be replaced with a node
           const textContent = node.textContent.replace(/[\r\n]/g, '').trim();
           if (textContent) {
             const tmpNode = document.createElement('i');
@@ -610,9 +611,9 @@
         }
       }
 
-      // 处理 <span>111<a>222</a></span> <span>111<img src="xx" /></span>
+      // Processing <span>111<a>222</a></span> <span>111<img src="xx" /></span>
       if (tagName === 'SPAN' && node.innerHTML) {
-        // 先处理图片和背景图
+        // Process image and background image first
         this.handleImages(node.childNodes);
 
         textHandler(node, this.options);
@@ -622,7 +623,7 @@
       return false;
     },
 
-    // 文本节点统一处理，需要对背景图、IMG、SVG 等进行再次处理
+    // The text nodes are processed uniformly, and the background image, IMG, SVG, etc. need to be processed again.
     handleImages(nodes) {
       if (!nodes) return;
 
@@ -642,7 +643,7 @@
       });
     },
 
-    // 处理节点列表
+    // Processing node list
     handleNodes(nodes) {
       if (!nodes.length) return;
 
@@ -651,23 +652,23 @@
       });
     },
 
-    // 处理单个节点
+    // Processing a single node
     handleNode(node) {
       if (!node) return;
 
-      // 删除不在首屏，或者标记为删除的元素
+      // Delete elements that are not in first screen, or marked for deletion
       if (!inViewPort(node) || hasAttr(node, 'data-skeleton-remove')) {
         return removeElement(node);
       }
 
-      // 处理用户标记忽略的元素 -> 结束
+      // Handling elements that are ignored by user tags -> End
       const ignore = hasAttr(node, 'data-skeleton-ignore') || node.tagName === 'STYLE';
       if (ignore) return;
 
-      // 预处理一些样式
+      // Preprocessing some styles
       beforeHandler(node, this.options);
 
-      // 预处理伪类样式
+      // Preprocessing pseudo-class style
       pseudoHandler(node, this.options);
 
       const tagName = node.tagName && node.tagName.toUpperCase();
@@ -687,7 +688,7 @@
         case 'INPUT':
           inputHandler(node);
           break;
-        case 'BUTTON': // 按钮处理一次就结束
+        case 'BUTTON': // Button processing ends once
           buttonHandler(node);
           break;
         case 'UL':
@@ -695,7 +696,7 @@
         case 'DL':
           listHandler(node, this.options);
           break;
-        case 'A': // a 标签处理放在后面，防止 img 显示异常
+        case 'A': // A label processing is placed behind to prevent IMG from displaying an exception
           aHandler(node);
           break;
         default:
@@ -703,12 +704,14 @@
       }
 
       if (isBtn) {
-        buttonHandler(node); // 处理按钮样式，处理完直接结束
+        // Handle button styles, end directly after processing
+        buttonHandler(node);
       } else {
-        isCompleted = this.handleText(node); // 其他节点按照文本处理
+        // Other nodes are processed as TEXT
+        isCompleted = this.handleText(node);
       }
 
-      // 不是按钮并且没有被 handleText 处理过，则处理子节点
+      // If it is a button and has not been processed by handleText, then the child node is processed
       if (!isBtn && !isCompleted) {
         this.handleNodes(node.childNodes);
       }

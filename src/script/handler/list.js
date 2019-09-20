@@ -15,19 +15,19 @@ const listHandler = (node, options) => {
   if (len === 0) return false;
 
   const firstChild = children[0];
-  // 解决有时ul元素子元素不是指定列表元素的 bug。
+  // Solve the bug that sometimes the ul element child element is not a specified list element.
   if (LIST_ITEM_TAG.indexOf(firstChild.tagName) === -1) {
     return listHandler(firstChild, options);
   }
 
-  // 只保留第一个列表元素
+  // Keep only the first list element
   Array.from(children).forEach((li, index) => {
     if (index > 0) {
       removeElement(li);
     }
   });
 
-  // 将 li 所有兄弟元素设置成相同的元素，保证生成的页面骨架整齐
+  // Set all sibling elements of LI to the same element to ensure that the generated page skeleton is neat
   for (let i = 1; i < len; i++) {
     node.appendChild(firstChild.cloneNode(true));
   }

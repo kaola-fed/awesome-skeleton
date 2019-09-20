@@ -6,15 +6,15 @@ import {
 function svgHandler(node) {
   const { width, height } = node.getBoundingClientRect();
 
-  // 元素不可见则移除
+  // Remove elements if they are not visible
   if (width === 0 || height === 0 || node.getAttribute('aria-hidden') === 'true') {
     return removeElement(node);
   }
 
-  // 清空元素内容
+  // Clear node centent
   node.innerHTML = '';
 
-  // 设置样式
+  // Set style
   Object.assign(node.style, {
     width: px2rem(parseInt(width)),
     height: px2rem(parseInt(height)),

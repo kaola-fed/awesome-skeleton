@@ -140,14 +140,14 @@ function handleTextStyle(ele, width) {
   const position = [ 'fixed', 'absolute', 'flex' ].find(p => p === pos) ? pos : 'relative';
 
   const height = ele.offsetHeight;
-  // 向下取整
+  // Round down
   let lineCount = (height - parseFloat(paddingTop, 10) - parseFloat(paddingBottom, 10)) / parseFloat(lineHeight, 10) || 0;
 
   lineCount = lineCount < 1.5 ? 1 : lineCount;
 
-  const textHeightRatio = 0.6; // 默认值
+  const textHeightRatio = 0.6; // Default
 
-  // 添加文本块类名标记
+  // Add text block class name tag
   ele.classList.add(SKELETON_TEXT_CLASS);
 
   Object.assign(ele.style, {
@@ -193,19 +193,19 @@ function textHandler(ele, options) {
     width,
   } = ele.getBoundingClientRect();
 
-  // 宽度小于 N 的元素就不做阴影处理
+  // Elements with a width less than N are not handled
   const minGrayBlockWidth = options.minGrayBlockWidth || 30;
   if (width <= minGrayBlockWidth) {
     return setOpacity(ele);
   }
 
-  // 如果是按钮则提前结束
+  // If it is a button, it ends early
   const isBtn = /(btn)|(button)/g.test(ele.getAttribute('class'));
   if (isBtn) {
     return handlerButton(ele);
   }
 
-  // 处理文本样式
+  // Handling text styles
   handleTextStyle(ele, width);
 }
 

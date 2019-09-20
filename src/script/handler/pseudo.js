@@ -16,7 +16,7 @@ function pseudoHandler(node, options) {
 
   const { ele, width } = pseudo;
 
-  // 宽度小于阈值隐藏
+  // Width is less than the hiding threshold
   if (width < options.minGrayPseudoWidth) {
     return ele.classList.add(TRANSPARENT_CLASS);
   }

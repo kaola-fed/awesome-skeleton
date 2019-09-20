@@ -12,7 +12,7 @@ import {
 import * as handler from './handler/index';
 
 window.AwesomeSkeleton = {
-  // 入口函数
+  // Entry function
   async genSkeleton(options) {
     this.options = options;
     if (options.debug) {
@@ -22,7 +22,7 @@ window.AwesomeSkeleton = {
     }
   },
 
-  // 开始生成骨架图
+  // Start generating the skeleton
   async startGenSkeleton() {
     this.init();
     try {
@@ -32,7 +32,8 @@ window.AwesomeSkeleton = {
     }
   },
 
-  // Debug 模式生成骨架图，用于调试。页面顶部会有按钮，点击后生成骨架图
+  // The Debug mode generates a skeleton diagram for debugging.
+  // There will be a button at the top of the page, and click to generate a skeleton map.
   async debugGenSkeleton(options) {
     const switchElement = document.createElement('button');
     switchElement.innerHTML = '开始生成骨架图';
@@ -46,7 +47,7 @@ window.AwesomeSkeleton = {
     });
     document.body.prepend(switchElement);
 
-    // 需要等待事件处理，所以使用 Promise 进行包装
+    // Need to wait for event processing, so use Promise for packaging
     return new Promise((resolve, reject) => {
       try {
         switchElement.onclick = async () => {
@@ -62,13 +63,13 @@ window.AwesomeSkeleton = {
     });
   },
 
-  // 初始化处理 DOM
+  // Initialization processing DOM
   init() {
     this.cleanSkeletonContainer();
     handler.style();
   },
 
-  // 将骨架图html和style从页面中移除，避免干扰
+  // Remove skeleton image html and style from the page to avoid interference
   cleanSkeletonContainer() {
     const skeletonWrap = document.body.querySelector('#nozomi-skeleton-html-style-container');
     if (skeletonWrap) {
@@ -77,25 +78,25 @@ window.AwesomeSkeleton = {
   },
 
   /**
-   * 处理文本节点
-   * @param {*} node 节点
-   * @return {Boolean} true 已完成处理，false 还需要继续处理
+   * Processing text nodes
+   * @param {*} node Node
+   * @return {Boolean} True means that processing has been completed, false means that processing still needs to be continued
    */
   handleText(node) {
     const tagName = node.tagName && node.tagName.toUpperCase();
 
-    // 处理 <div>xxx</div> 或 <a>xxx</a>
+    // Processing <div>xxx</div> or <a>xxx</a>
     if (node.childNodes && node.childNodes.length === 1 && node.childNodes[0].nodeType === 3) {
       handler.text(node, this.options);
       return true;
     }
 
-    // 处理 xxx，改为 <i>xxx</i>
+    // Processing xxx，change to <i>xxx</i>
     if (node && node.nodeType === 3 && node.textContent) {
       const parent = node.parentNode;
-      // 判断是否已经被处理过
+      // Determine if it has been processed
       if (!parent.classList.contains(SKELETON_TEXT_CLASS)) {
-        // 本身为纯文本，需要替换为节点
+        // It is plain text itself and needs to be replaced with a node
         const textContent = node.textContent.replace(/[\r\n]/g, '').trim();
         if (textContent) {
           const tmpNode = document.createElement('i');
@@ -108,9 +109,9 @@ window.AwesomeSkeleton = {
       }
     }
 
-    // 处理 <span>111<a>222</a></span> <span>111<img src="xx" /></span>
+    // Processing <span>111<a>222</a></span> <span>111<img src="xx" /></span>
     if (tagName === 'SPAN' && node.innerHTML) {
-      // 先处理图片和背景图
+      // Process image and background image first
       this.handleImages(node.childNodes);
 
       handler.text(node, this.options);
@@ -120,7 +121,7 @@ window.AwesomeSkeleton = {
     return false;
   },
 
-  // 文本节点统一处理，需要对背景图、IMG、SVG 等进行再次处理
+  // The text nodes are processed uniformly, and the background image, IMG, SVG, etc. need to be processed again.
   handleImages(nodes) {
     if (!nodes) return;
 
@@ -140,7 +141,7 @@ window.AwesomeSkeleton = {
     });
   },
 
-  // 处理节点列表
+  // Processing node list
   handleNodes(nodes) {
     if (!nodes.length) return;
 
@@ -149,23 +150,23 @@ window.AwesomeSkeleton = {
     });
   },
 
-  // 处理单个节点
+  // Processing a single node
   handleNode(node) {
     if (!node) return;
 
-    // 删除不在首屏，或者标记为删除的元素
+    // Delete elements that are not in first screen, or marked for deletion
     if (!inViewPort(node) || hasAttr(node, 'data-skeleton-remove')) {
       return removeElement(node);
     }
 
-    // 处理用户标记忽略的元素 -> 结束
+    // Handling elements that are ignored by user tags -> End
     const ignore = hasAttr(node, 'data-skeleton-ignore') || node.tagName === 'STYLE';
     if (ignore) return;
 
-    // 预处理一些样式
+    // Preprocessing some styles
     handler.before(node, this.options);
 
-    // 预处理伪类样式
+    // Preprocessing pseudo-class style
     handler.pseudo(node, this.options);
 
     const tagName = node.tagName && node.tagName.toUpperCase();
@@ -185,7 +186,7 @@ window.AwesomeSkeleton = {
       case 'INPUT':
         handler.input(node);
         break;
-      case 'BUTTON': // 按钮处理一次就结束
+      case 'BUTTON': // Button processing ends once
         handler.button(node);
         break;
       case 'UL':
@@ -193,7 +194,7 @@ window.AwesomeSkeleton = {
       case 'DL':
         handler.list(node, this.options);
         break;
-      case 'A': // a 标签处理放在后面，防止 img 显示异常
+      case 'A': // A label processing is placed behind to prevent IMG from displaying an exception
         handler.a(node);
         break;
       default:
@@ -201,12 +202,14 @@ window.AwesomeSkeleton = {
     }
 
     if (isBtn) {
-      handler.button(node); // 处理按钮样式，处理完直接结束
+      // Handle button styles, end directly after processing
+      handler.button(node);
     } else {
-      isCompleted = this.handleText(node); // 其他节点按照文本处理
+      // Other nodes are processed as TEXT
+      isCompleted = this.handleText(node);
     }
 
-    // 不是按钮并且没有被 handleText 处理过，则处理子节点
+    // If it is a button and has not been processed by handleText, then the child node is processed
     if (!isBtn && !isCompleted) {
       this.handleNodes(node.childNodes);
     }

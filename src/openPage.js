@@ -5,7 +5,7 @@ const {
 const puppeteer = require('puppeteer');
 const devices = require('puppeteer/DeviceDescriptors');
 
-// puppeteer/DeviceDescriptors 没有桌面样式，需要自定义
+// puppeteer/DeviceDescriptors, If no device style, need to customize
 const desktopDevice = {
   name: 'Desktop 1920x1080',
   userAgent: 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.75 Safari/537.36',
@@ -30,23 +30,23 @@ const openPage = async options => {
     page.on('error', msg => console.log('PAGE ERR: ', ...msg.args));
   }
 
-  // 写入 cookie，解决登录态问题
+  // Write cookies to solve the login status problem
   if (options.cookies && options.cookies.length) {
     await page.setCookie(...options.cookies);
     await page.cookies(options.pageUrl);
     await sleep(1000);
   }
 
-  // 打开页面
+  // open page
   await page.goto(options.pageUrl);
 
-  // 获取 src/script 中打包后的脚本
+  // Get the packaged script in src/script
   const scriptContent = await genScriptContent();
 
-  // 将脚本注入到目标页面中，拿到全局变量 AwesomeSkeleton
+  // Inject the script into the target page and get the global variable AwesomeSkeleton
   await page.addScriptTag({ content: scriptContent });
 
-  // 等待页面执行完成
+  // Waiting for page execution to complete
   await sleep(2000);
 
   return {

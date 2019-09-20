@@ -18,7 +18,7 @@ function buttonHandler(node) {
   node.style.width = width;
   node.style.height = height;
 
-  // 清空按钮内容
+  // Clear button content
   node.innerHTML = '';
 }
 

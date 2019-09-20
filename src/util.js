@@ -2,12 +2,12 @@ const { promisify } = require('util');
 const path = require('path');
 const fs = require('fs');
 
-// 睡眠函数
+// sleep function
 const sleep = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
 
-// 获取 scr/script 打包后的脚本内容，用来注入到目标页面中
+// Get the contents of the scr/script packaged script for injecting into the target page
 const genScriptContent = async function() {
   const sourcePath = path.resolve(__dirname, './script/dist/index.js');
   const result = await promisify(fs.readFile)(sourcePath, 'utf-8');

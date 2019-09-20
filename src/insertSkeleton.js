@@ -2,12 +2,12 @@ const fs = require('fs');
 const path = require('path');
 const minify = require('html-minifier').minify;
 
-// 在模板中注入骨架图
+// Inject the skeleton into the template
 const insertSkeleton = (skeletonImageBase64, options) => {
   const skeletonHTMLPath = path.join(options.outputPath, `skeleton-${options.pageName}.html`);
 
   if (!skeletonImageBase64) {
-    console.warn('骨架图还没未生成');
+    console.warn('The skeleton has not been generated yet');
     return false;
   }
 
@@ -53,9 +53,9 @@ const insertSkeleton = (skeletonImageBase64, options) => {
       background-position: center 0 !important;
     "></div>
     <script class="${skeletonClass}">
-      // 定义外部调用的钩子
+      // Define hooks
       window.SKELETON = {
-        destroy: function () { // 主动销毁骨架图
+        destroy: function () { // Manually destroy the skeleton
           var removes = Array.from(document.body.querySelectorAll('.${skeletonClass}'));
           removes && removes.map(function(item){
             document.body.removeChild(item);
@@ -63,7 +63,7 @@ const insertSkeleton = (skeletonImageBase64, options) => {
         }
       };
 
-      // 默认在 onload 事件 1s 后销毁
+      // destroy after the onload event 1s by default
       window.addEventListener('load', function(){
         setTimeout(function(){
           window.SKELETON && SKELETON.destroy()
@@ -71,14 +71,14 @@ const insertSkeleton = (skeletonImageBase64, options) => {
       });
     </script>`;
 
-  // 代码压缩
+  // Code compression
   const minifyContent = minify(content, {
     minifyCSS: true,
     minifyJS: true,
     removeComments: true,
   });
 
-  // 写入文件
+  // Write file
   fs.writeFileSync(skeletonHTMLPath, minifyContent, 'utf8', function(err) {
     if (err) return console.error(err);
   });

@@ -1,9 +1,9 @@
-// 睡眠函数
+// sleep function
 export const sleep = ms => {
   return new Promise(resolve => setTimeout(resolve, ms));
 };
 
-// 检查节点是否在首屏中
+// Check if the node is in the first screen
 export const inViewPort = ele => {
   try {
     const rect = ele.getBoundingClientRect();
@@ -15,7 +15,7 @@ export const inViewPort = ele => {
   }
 };
 
-// 判断节点是否存在属性
+// Determine if the node has attributes
 export const hasAttr = (ele, attr) => {
   try {
     return ele.hasAttribute(attr);
@@ -24,14 +24,14 @@ export const hasAttr = (ele, attr) => {
   }
 };
 
-// 设置节点透明
+// Set node transparency
 export const setOpacity = ele => {
   if (ele.style) {
     ele.style.opacity = 0;
   }
 };
 
-// 单位转换 px -> rem
+// Unit conversion px -> rem
 export const px2rem = px => {
   const pxValue = typeof px === 'string' ? parseInt(px, 10) : px;
   const htmlElementFontSize = getComputedStyle(document.documentElement).fontSize;
@@ -39,12 +39,12 @@ export const px2rem = px => {
   return `${(pxValue / parseInt(htmlElementFontSize, 10))}rem`;
 };
 
-// 批量设置元素属性
+// Batch setting element properties
 export const setAttributes = (ele, attrs) => {
   Object.keys(attrs).forEach(k => ele.setAttribute(k, attrs[k]));
 };
 
-// 删除元素
+// Delete element
 export const removeElement = ele => {
   const parent = ele.parentNode;
   if (parent) {
@@ -52,7 +52,7 @@ export const removeElement = ele => {
   }
 };
 
-// 检查元素伪类，返回对应元素和宽度
+// Check the element pseudo-class to return the corresponding element and width
 export const checkHasPseudoEle = ele => {
   if (!ele) return false;
 

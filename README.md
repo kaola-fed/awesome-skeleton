@@ -4,32 +4,36 @@
 [![Build status][travis-image]][travis-url]
 [![Dependency status][daviddm-image]][daviddm-url]
 
-> 骨架屏生成工具
+> Skeleton generation tool
 
-## 效果
+English | [简体中文](./README-zh_CN.md)
 
-![百度骨架图效果](https://user-images.githubusercontent.com/11460601/65244525-53531880-db1d-11e9-85ca-76fe9c04868f.jpeg)
+## Effect preview
 
-## 说明
-* 骨架图生成组件，仅限node端使用。该组件提供骨架图生成和骨架图模板注入两个能力。
-* 骨架图生成逻辑：通过传入页面地址，使用 Puppeteer 无头浏览器打开页面地址，对页面首屏图片和文本等节点进行灰色背景处理，然后对页面首屏进行截图，生成压缩后的 base64 png 图片。
+View online effects: [Kaola cart](https://m-buy.kaola.com/cart.html):
 
-## 安装
+![kaola skeleton](https://user-images.githubusercontent.com/11460601/65293821-19225f00-db8f-11e9-802f-ef34458e9c58.jpg)
 
-### 全局安装
+## Description
+* skeleton generation component, only for the node side. This component provides two capabilities for skeleton generation and skeleton template injection.
+* Skeletal diagram generation logic: Open the page address by using the Puppeteer headless browser by passing in the page address, perform gray background processing on the first screen image and text of the page, and then take a screenshot of the first screen of the page to generate a compressed base64 png image.
+
+## Installation
+
+### Global installation
 
 ```bash
 $ npm i awesome-skeleton -g
 ```
 
-### 项目中安装
+### Installation in the project
 ```bash
 $ npm i awesome-skeleton -D
 ```
 
-## 使用方法
+## Instructions
 
-### 添加配置文件
+### Adding a configuration file
 
 skeleton.config.json:
 
@@ -62,73 +66,86 @@ skeleton.config.json:
 }
 ```
 
-### 全局生成骨架屏
+### Globally generated skeleton
 
 ```bash
 $ skeleton -c ./skeleton.config.json
 ```
 
-页面 DomReady 之后，会在页面顶部出现红色按钮：开始生成骨架屏。
+After the page DomReady, a red button appears at the top of the page: Start generating the skeleton screen.
 
-生成完成后，会在运行目录生成 skeleton-output 文件件，里面包括骨架屏 png 图片、base64 文本、html 文件。
+After the build is complete, a skeleton-output file is generated in the run directory, which includes the skeleton screen png image, base64 text, and html file:
+- base64-baidu.png # skeleton picture
+- base64-baidu.txt # skeleton diagram Base64 encoding
+- base64-baidu.html # Final HTML generationL
 
-其中 html 文件可以直接拿来用，复制下面位置：
+The html file can be used directly, copy the following location:
 
 ```html
 <html>
   <head>
-    <!--- 骨架屏代码 -->
+    <!--- skeleton html code -->
   </head>
 </html>
 ```
 
-### 项目中生成骨架屏
+note:
+- The skeleton is destroyed by default after the ons event 1s.
+- Manual destruction method：
 
-在 package.json 中添加脚本：
+```js
+window.SKELETON && SKELETON.destroy();
+```
+
+**Of course, you can also use the generated Base64 image directly in your project**
+
+### Creating a skeleton screen in the project
+
+Add a script to package.json :
 
 ```json
 "scripts": {
-  "skeleton": "skeleton -c ./skeleton.config.json"
+   "skeleton": "skeleton -c ./skeleton.config.json"
 }
 ```
 
-生成骨架屏：
+Generate skeleton screen:：
 
 ```bash
 $ npm run skeleton
 ```
 
-### 解决登录态
+### Solve the login status
 
-如果页面需要登录，则需要下载 Chrome 插件 [EditThisCookie](https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg)，将 Cookie 复制到配置参数中。
+If the page requires a login, you'll need to download the Chrome plugin [EditThisCookie] (https://chrome.google.com/webstore/detail/editthiscookie/fngmhnnpilhplaeedifhccceomclgfbg) to copy the cookie into the configuration parameters.
 
-## 参数
+## Parameters
 
-| 参数名称 | 必填 | 默认值 | 说明 |
+| Parameter Name | Required | Default | Description |
 | --- | --- | --- | --- |
-| pageUrl | 是 | - | 页面地址（此地址必须可访问） |
-| pageName | 否 | output | 页面名称（仅限英文） |
-| cookies | 否 |  | 页面 Cookies，用来解决登录态问题 |
-| outputPath | 否 | skeleton-output | 骨架图文件输出文件夹路径，默认到项目 skeleton-output 中 |
-| openRepeatList | 否 | true | 默认会将每个列表的第一项进行复制 |
-| device | 否 | 空为PC | 参考 puppeteer/DeviceDescriptors.js，可以设置为 'iPhone 6 Plus' |
-| debug | 否 | false | 是否开启调试开关 |
-| debugTime | 否 | 0 | 调试模式下，页面停留在骨架图的时间 |
-| minGrayBlockWidth | 否 | 0 | 最小处理灰色块的宽度 |
-| minGrayPseudoWidth | 否 | 0 | 最小处理伪类宽 |
+| pageUrl | Yes | - | Page address (this address must be accessible) |
+| pageName | no | output | page name (English only) |
+| cookies | no | | page cookies to resolve login status issues |
+OutputPath | no | skeleton-output | skeleton file output folder path, default to project skeleton-output |
+| openRepeatList | no | true | by default will copy the first item of each list |
+| device | no | empty for PC | reference puppeteer/DeviceDescriptors.js, can be set to 'iPhone 6 Plus' |
+| debug | no | false | turn on debug switch |
+| debugTime | No | 0 | Time in the debug mode, the page stays in the skeleton |
+| minGrayBlockWidth | No | 0 | Minimum processing width of gray blocks |
+| minGrayPseudoWidth | No | 0 | Minimum processing pseudo-class width |
 
-## dom 节点属性
+## dom node attribute
 
-这是获取优质骨架图的要点，通过设置以下几个 dom 节点属性，在骨架图中对某些节点进行移除、忽略和指定背景色的操作，去除冗余节点的干扰，从而使得骨架图效果达到最佳。
+This is the main point of obtaining a high-quality skeleton. By setting the following dom node attributes, some nodes are removed, ignored, and specified in the skeleton to remove the interference of redundant nodes, thus making the skeleton effect Get the best.
 
-| 参数名称 | 说明 |
+| Parameter Name | Description |
 | --- | --- |
-| data-skeleton-remove | 指定进行移除的 dom 节点属性 |
-| data-skeleton-bgcolor | 指定在某 dom 节点中添加的背景色 |
-| data-skeleton-ignore | 指定忽略不进行任何处理的 dom 节点属性 |
-| data-skeleton-empty | 将某dom的innerHTML置为空字符串 |
+| data-skeleton-remove | Specifies the dom node properties to remove |
+| data-skeleton-bgcolor | Specify the background color added in a dom node |
+| data-skeleton-ignore | Specifies to ignore dom node properties without any processing |
+| data-skeleton-empty | Set a dom's innerHTML to an empty string |
 
-示例：
+Example:
 
 ```html
 <div data-skeleton-remove><span>abc</span></div>
@@ -137,53 +154,34 @@ $ npm run skeleton
 <div data-skeleton-empty><span>abc</span></div>
 ```
 
-## 项目开发指南
+## Contributing
 
-### 安装依赖
+### Installation dependencies
 
 ```bash
+$ git clone git@github.com:kaola-fed/awesome-skeleton.git
 $ cd awesome-skeleton && npm i
 ```
 
-### 运行项目
+### Running the project
 
-由于生成骨架图的代码是通过动态脚本插入的，所以需要通过 rollup 将 src/script 中的代码打包到 src/script/dist/index.js 中。首先启动 rollup 打包
+Since the code that generates the skeleton is inserted through dynamic scripts, the code in src/script needs to be packaged into src/script/dist/index.js by Rollup.
 
 ```bash
 $ npm run dev
 ```
 
-修改 demo/index.js 中的配置，从而生成不同页面的骨架图：
+Modify the configuration in demo/index.js to generate a skeleton of the different pages:
 
 ```bash
 $ cd demo
 $ node index.js
 ```
 
-生成的结果在 demo/output 中，包括
-- base64-test.png # 骨架图图片
-- base64-test.txt # 骨架图 Base64 编码
-- base64-test.html # 最终生成 HTML
-
-### 在项目中使用
-
-将 demo/output/base64-test.html 的内容复制到目标页面模版的 <head> 中。
-
-注意：
-- 骨架图默认在 onload 事件 1s 后销毁。
-- 手动销毁方式：
-
-```js
-window.SKELETON && SKELETON.destroy();
-```
-
-**当然，你也可以在项目中直接使用生成的 Base64 图片**
-
-# 感谢
+# Thanks
 
 - [puppeteer](https://github.com/GoogleChrome/puppeteer)
 - [page-skeleton-webpack-plugin](https://github.com/ElemeFE/page-skeleton-webpack-plugin)
-- [joe-skeleton](https://github.com/korbinzhao/joe-skeleton)
 
 [npm-image]: https://img.shields.io/npm/v/awesome-skeleton.svg?style=flat-square&logo=npm
 [npm-url]: https://npmjs.org/package/awesome-skeleton

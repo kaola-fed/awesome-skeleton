@@ -6,20 +6,20 @@ const base64Img = require('base64-img');
 const saveScreenShot = async (page, options) => {
   const screenshotPath = path.join(options.outputPath, `skeleton-${options.pageName}.png`);
 
-  // 首屏骨架图截图
+  // First screen skeleton screenshot
   await page.screenshot({
     path: screenshotPath,
   });
 
   const imgWidth = options.device ? 375 : 1920;
-  // 使用 images 进行图片压缩
+  // Use images for image compression
   await images(screenshotPath).size(imgWidth).save(screenshotPath);
 
   const skeletonImageBase64 = base64Img.base64Sync(screenshotPath);
 
   const skeletonBase64Path = options.outputPath ? path.join(options.outputPath, './base64-' + options.pageName + '.txt') : null;
   if (skeletonBase64Path) {
-    // 将骨架图 base64 png 写入 txt 文件
+    // Write the skeleton base64 png to a txt file
     fs.writeFileSync(skeletonBase64Path, skeletonImageBase64, err => {
       if (err) throw err;
       console.log(`The base64-${options.pageName}.txt file has been saved in path '${options.outputPath}' !`);
