@@ -14,6 +14,7 @@
     "test": "nyc mocha",
     "ci": "npm run lint && npm run test",
     "version": "conventional-changelog -p angular -i CHANGELOG.md -s && git add .",
+    "contributor": "git-contributor",
     "prepublishOnly": "np --yolo --no-publish"
   },
   "dependencies": {
@@ -31,6 +32,7 @@
     "conventional-changelog-cli": "^2.0.23",
     "eslint": "^6.3.0",
     "eslint-config-egg": "^7.5.1",
+    "git-contributor": "^1.0.10",
     "husky": "^3.0.5",
     "lint-staged": "^9.2.5",
     "mocha": "^6.2.0",

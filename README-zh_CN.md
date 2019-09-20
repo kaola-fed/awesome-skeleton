@@ -8,6 +8,16 @@
 
 [English](./README.md) | 简体中文
 
+
+<!-- GITCONTRIBUTOR_START -->
+
+## Contributors
+
+|[<img src="https://avatars1.githubusercontent.com/u/11460601?v=4" width="100px;"/><br/><sub><b>zivyangll</b></sub>](https://github.com/zivyangll)<br/>|
+| :---: |
+
+<!-- GITCONTRIBUTOR_END -->
+
 ## 效果
 
 查看线上效果：[考拉购物车](https://m-buy.kaola.com/cart.html)

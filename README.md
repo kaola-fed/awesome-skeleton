@@ -8,6 +8,15 @@
 
 English | [简体中文](./README-zh_CN.md)
 
+<!-- GITCONTRIBUTOR_START -->
+
+## Contributors
+
+|[<img src="https://avatars1.githubusercontent.com/u/11460601?v=4" width="100px;"/><br/><sub><b>zivyangll</b></sub>](https://github.com/zivyangll)<br/>|
+| :---: |
+
+<!-- GITCONTRIBUTOR_END -->
+
 ## Effect preview
 
 View online effects: [Kaola cart](https://m-buy.kaola.com/cart.html):
