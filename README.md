@@ -112,7 +112,7 @@ window.SKELETON && SKELETON.destroy();
 
 Add a script to package.json :
 
-```json
+```
 "scripts": {
    "skeleton": "skeleton -c ./skeleton.config.json"
 }
