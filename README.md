@@ -99,7 +99,7 @@ The html file can be used directly, copy the following location:
 ```
 
 note:
-- The skeleton is destroyed by default after the ons event 1s.
+- The skeleton is destroyed by default after onload event.
 - Manual destruction method：
 
 ```js

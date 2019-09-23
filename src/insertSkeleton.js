@@ -63,11 +63,11 @@ const insertSkeleton = (skeletonImageBase64, options) => {
         }
       };
 
-      // destroy after the onload event 1s by default
+      // destroy after the onload event by default
       window.addEventListener('load', function(){
         setTimeout(function(){
           window.SKELETON && SKELETON.destroy()
-        }, 1000);
+        }, 0);
       });
     </script>`;
 

@@ -100,7 +100,7 @@ $ skeleton -c ./skeleton.config.json
 ```
 
 注意：
-- 骨架图默认在 onload 事件 1s 后销毁。
+- 骨架图默认在 onload 事件后销毁。
 - 手动销毁方式：
 
 ```js
