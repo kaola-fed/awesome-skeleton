@@ -164,7 +164,7 @@ $ npm run skeleton
 <div data-skeleton-empty><span>abc</span></div>
 ```
 
-## 参与贡献
+## 本地开发
 
 ### 安装依赖
 

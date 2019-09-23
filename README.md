@@ -163,7 +163,7 @@ Example:
 <div data-skeleton-empty><span>abc</span></div>
 ```
 
-## Contributing
+## development
 
 ### Installation dependencies
 
