@@ -38,6 +38,7 @@ window.AwesomeSkeleton = {
     const switchElement = document.createElement('button');
     switchElement.innerHTML = '开始生成骨架图';
     Object.assign(switchElement.style, {
+      position: 'relative',
       width: '100%',
       zIndex: 9999,
       color: '#FFFFFF',

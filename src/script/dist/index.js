@@ -540,6 +540,7 @@
       const switchElement = document.createElement('button');
       switchElement.innerHTML = '开始生成骨架图';
       Object.assign(switchElement.style, {
+        position: 'relative',
         width: '100%',
         zIndex: 9999,
         color: '#FFFFFF',
@@ -698,8 +699,6 @@
           break;
         case 'A': // A label processing is placed behind to prevent IMG from displaying an exception
           aHandler(node);
-          break;
-        default:
           break;
       }
 
