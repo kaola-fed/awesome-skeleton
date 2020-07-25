@@ -537,9 +537,14 @@
     // The Debug mode generates a skeleton diagram for debugging.
     // There will be a button at the top of the page, and click to generate a skeleton map.
     async debugGenSkeleton(options) {
+      const switchWrapElement = document.createElement('div');
+      switchWrapElement.style.height = '100px';
       const switchElement = document.createElement('button');
       switchElement.innerHTML = '开始生成骨架图';
       Object.assign(switchElement.style, {
+        position: 'fixed',
+        top: 0,
+        left: 0,
         width: '100%',
         zIndex: 9999,
         color: '#FFFFFF',
@@ -547,7 +552,8 @@
         fontSize: '30px',
         height: '100px',
       });
-      document.body.prepend(switchElement);
+      switchWrapElement.appendChild(switchElement);
+      document.body.prepend(switchWrapElement);
 
       // Need to wait for event processing, so use Promise for packaging
       return new Promise((resolve, reject) => {
@@ -698,8 +704,6 @@
           break;
         case 'A': // A label processing is placed behind to prevent IMG from displaying an exception
           aHandler(node);
-          break;
-        default:
           break;
       }
 
