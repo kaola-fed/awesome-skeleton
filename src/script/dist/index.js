@@ -559,7 +559,7 @@
       return new Promise((resolve, reject) => {
         try {
           switchElement.onclick = async () => {
-            removeElement(switchElement);
+            removeElement(switchWrapElement);
             await this.startGenSkeleton();
             await sleep(options.debugTime || 0);
             resolve();
