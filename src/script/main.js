@@ -190,6 +190,7 @@ window.AwesomeSkeleton = {
         handler.svg(node);
         break;
       case 'INPUT':
+      case 'TEXTAREA':
         handler.input(node);
         break;
       case 'BUTTON': // Button processing ends once
